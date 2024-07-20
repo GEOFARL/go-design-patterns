@@ -71,7 +71,7 @@ type Breeder struct {
 
 type Pet struct {
 	Species     string `json:"species"`
-	Breed       int    `json:"breed"`
+	Breed       string `json:"breed"`
 	MinWeight   int    `json:"min_weight"`
 	MaxWeight   int    `json:"max_weight"`
 	Description string `json:"description"`
