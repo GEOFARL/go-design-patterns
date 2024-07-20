@@ -19,3 +19,17 @@ func TestApplication_GetAllDogBreedsJSON(t *testing.T) {
 		t.Errorf("wrong response code; got %d, wanted 200", rr.Code)
 	}
 }
+
+func TestApplication_GetAllCatBreeds(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/api/cat-breeds", nil)
+
+	rr := httptest.NewRecorder()
+
+	handler := http.HandlerFunc(testApp.GetAllCatBreeds)
+
+	handler.ServeHTTP(rr, req)
+
+	if rr.Code != http.StatusOK {
+		t.Errorf("wrong response code; got %d, wanted 200", rr.Code)
+	}
+}
