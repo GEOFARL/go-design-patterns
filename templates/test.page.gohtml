@@ -27,6 +27,19 @@
       <div class="mt-2" style="outline: 1px solid silver; padding: 2em;">
         <pre id="abstract-output"><span class="text-muted">Nothing received yet...</span></pre>
       </div>
+
+      <hr class="mt-4">
+
+      <h3 class="mt-3">Builder</h3>
+      <div>
+        <a href="javascript:void(0);" id="dog-builder-btn" class="btn btn-outline-secondary">Build a dog</a>
+
+        <a href="javascript:void(0);" id="cat-builder-btn" class="btn btn-outline-secondary">Build a cat</a>
+      </div>
+
+      <div class="mt-2" style="outline: 1px solid silver; padding: 2em;">
+        <pre id="builder-output"><span class="text-muted">Nothing received yet...</span></pre>
+      </div>
     </div>
   </div>
 </div>
@@ -41,6 +54,10 @@ const dogFactoryOutput = document.getElementById("dog-factory-output");
 const dogAbstractBtn = document.getElementById("dog-abstract-btn");
 const catAbstarctBtn = document.getElementById("cat-abstract-btn");
 const abstractFactoryOutput = document.getElementById("abstract-output");
+
+const dogBuilderBtn = document.getElementById("dog-builder-btn");
+const catBuilderBtn = document.getElementById("cat-builder-btn");
+const builderOutput = document.getElementById("builder-output");
 
 document.addEventListener("DOMContentLoaded", () => {
   dogFactoryButton.addEventListener("click", () => {
@@ -87,6 +104,30 @@ document.addEventListener("DOMContentLoaded", () => {
           abstractFactoryOutput.innerHTML = data.error
         } else {
           abstractFactoryOutput.innerHTML = JSON.stringify(data, undefined, 4);
+        }
+      })
+  })
+
+  dogBuilderBtn.addEventListener("click", () => {
+    fetch("/api/dog-from-builder")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          builderOutput.innerHTML = data.error
+        } else {
+          builderOutput.innerHTML = JSON.stringify(data, undefined, 4)
+        }
+      })
+  })
+
+  catBuilderBtn.addEventListener("click", () => {
+    fetch("/api/cat-from-builder")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          builderOutput.innerHTML = data.error
+        } else {
+          builderOutput.innerHTML = JSON.stringify(data, undefined, 4)
         }
       })
   })
