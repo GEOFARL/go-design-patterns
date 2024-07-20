@@ -3,7 +3,7 @@ package models
 import "time"
 
 type DogBreed struct {
-	ID               int    `json:""id""`
+	ID               int    `json:"id"`
 	Breed            string `json:"breed"`
 	WeightLowLbs     int    `json:"weight_low_lbs"`
 	WightHighLbs     int    `json:"weight_high_lbs"`
