@@ -7,7 +7,7 @@ import (
 
 func main() {
 	const numJobs = 4
-	const numWorkers = 2
+	const numWorkers = 1
 
 	notifyChan := make(chan streamer.ProcessingMessage, numJobs)
 	defer close(notifyChan)
@@ -17,4 +17,10 @@ func main() {
 
 	wp := streamer.New(videoQueue, numWorkers)
 	fmt.Println("wp: ", wp)
+
+	wp.Run()
+
+	video := wp.NewVideo(1, "./input/puppy1.mp4", "./output", "mp4", notifyChan, nil)
+
+	videoQueue <- streamer.VideoProcessingJob{Video: video}
 }
