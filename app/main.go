@@ -18,8 +18,6 @@ func main() {
 	wp := streamer.New(videoQueue, numWorkers)
 
 	wp.Run()
-	fmt.Println("Worker pool started. Press enter to continue")
-	_, _ = fmt.Scanln()
 
 	video := wp.NewVideo(1, "./input/puppy1.mp4", "./output", "mp4", notifyChan, nil)
 
