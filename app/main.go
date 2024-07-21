@@ -21,6 +21,7 @@ func main() {
 
 	// video := wp.NewVideo(1, "./input/puppy1.mp4", "./output", "mp4", notifyChan, nil)
 	ops := &streamer.VideoOptions{
+		RenameOutput: true,
 		SegmentDuration: 10,
 		MaxRate1080:     "1200k",
 		MaxRate720p:     "600k",
