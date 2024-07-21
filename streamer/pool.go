@@ -1,5 +1,7 @@
 package streamer
 
+import "fmt"
+
 type VideoDispatcher struct {
 	WorkerPool chan chan VideoProcessingJob
 	maxWorkers int
@@ -14,6 +16,7 @@ type videoWorker struct {
 }
 
 func newVideoWorker(id int, workerPool chan chan VideoProcessingJob) videoWorker {
+	fmt.Println("newVideoWorker: creating video worker id", id)
 	return videoWorker{
 		id:         id,
 		jobQueue:   make(chan VideoProcessingJob),
@@ -22,7 +25,9 @@ func newVideoWorker(id int, workerPool chan chan VideoProcessingJob) videoWorker
 }
 
 func (vd *VideoDispatcher) Run() {
+	fmt.Println("vd.Run: starting worker pool by running workers")
 	for i := 0; i < vd.maxWorkers; i++ {
+		fmt.Println("vd.Run: starting worker id", i+1)
 		worker := newVideoWorker(i+1, vd.WorkerPool)
 		worker.start()
 	}
@@ -31,6 +36,7 @@ func (vd *VideoDispatcher) Run() {
 }
 
 func (w videoWorker) start() {
+	fmt.Println("w.start(): starting worker id", w.id)
 	go func() {
 		for {
 			w.workerPool <- w.jobQueue
@@ -43,6 +49,7 @@ func (w videoWorker) start() {
 func (vd *VideoDispatcher) dispatch() {
 	for {
 		job := <-vd.jobQueue
+		fmt.Println("vd.dispatch: sending job", job.Video.ID, "to worker job queue")
 
 		go func() {
 			workerJobQueue := <-vd.WorkerPool
@@ -52,5 +59,6 @@ func (vd *VideoDispatcher) dispatch() {
 }
 
 func (w videoWorker) processVideoJob(video Video) {
+	fmt.Println("w.processVideoJob: starting encode on video", video.ID)
 	video.encode()
 }
