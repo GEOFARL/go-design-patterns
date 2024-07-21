@@ -8,6 +8,7 @@ import (
 
 type Encoder interface {
 	EncodeToMP4(v *Video, baseFileName string) error
+	EncodeToHLS(v *Video, baseFileName string) error
 }
 
 type VideoEncoder struct{}
@@ -28,5 +29,9 @@ func (ve *VideoEncoder) EncodeToMP4(v *Video, baseFileName string) error {
 		return err
 	}
 
+	return nil
+}
+
+func (ve *VideoEncoder) EncodeToHLS(v *Video, baseFileName string) error {
 	return nil
 }
