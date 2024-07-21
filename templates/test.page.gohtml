@@ -40,6 +40,34 @@
       <div class="mt-2" style="outline: 1px solid silver; padding: 2em;">
         <pre id="builder-output"><span class="text-muted">Nothing received yet...</span></pre>
       </div>
+
+      <hr class="mt-4" />
+
+      <h3 class="mt-4">Abstract factory II</h3>
+
+      <form>
+        <div class="row mb-3">
+          <label for="species" class="col-sm-2 col-form-label">
+            Species
+          </label>
+          <select id="species" class="form-select">
+            <option selected>Choose...</option>
+            <option value="cat">Cat</option>
+            <option value="dog">Dog</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label for="breed" class="col-sm-2 col-form-label">Breed</label>
+          <input type="text" class="form-control" id="breed">
+        </div>
+
+        <a href="javascript:void(0)" id="abstract-factory-ii-btn" class="btn btn-outline-secondary">Get from abstract factory</a>
+      </form>
+
+      <div class="mt-2" style="outline: 1px slid silver; padding: 2em">
+        <pre id="abstract-factory-ii-output"><span class="text-muted">Nothing received yet</span></pre>
+      </div>
     </div>
   </div>
 </div>
@@ -58,6 +86,9 @@ const abstractFactoryOutput = document.getElementById("abstract-output");
 const dogBuilderBtn = document.getElementById("dog-builder-btn");
 const catBuilderBtn = document.getElementById("cat-builder-btn");
 const builderOutput = document.getElementById("builder-output");
+
+const abstractFactoryIIBtn = document.getElementById("abstract-factory-ii-btn");
+const abstractFactoryIIOutput = document.getElementById("abstract-factory-ii-output");
 
 document.addEventListener("DOMContentLoaded", () => {
   dogFactoryButton.addEventListener("click", () => {
@@ -128,6 +159,21 @@ document.addEventListener("DOMContentLoaded", () => {
           builderOutput.innerHTML = data.error
         } else {
           builderOutput.innerHTML = JSON.stringify(data, undefined, 4)
+        }
+      })
+  })
+
+  abstractFactoryIIBtn.addEventListener("click", () => {
+    const species = document.getElementById("species").value;
+    const breed = document.getElementById("breed").value;
+
+    fetch(`/api/animal-from-abstract-factory/${species}/${breed}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          abstractFactoryIIOutput.innerHTML = data.error
+        } else {
+          abstractFactoryIIOutput.innerHTML = JSON.stringify(data, undefined, 4)
         }
       })
   })
