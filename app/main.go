@@ -19,7 +19,14 @@ func main() {
 
 	wp.Run()
 
-	video := wp.NewVideo(1, "./input/puppy1.mp4", "./output", "mp4", notifyChan, nil)
+	// video := wp.NewVideo(1, "./input/puppy1.mp4", "./output", "mp4", notifyChan, nil)
+	ops := &streamer.VideoOptions{
+		SegmentDuration: 10,
+		MaxRate1080:     "1200k",
+		MaxRate720p:     "600k",
+		MaxRate480p:     "400k",
+	}
+	video := wp.NewVideo(1, "./input/puppy1.mp4", "./output", "hls", notifyChan, ops)
 
 	videoQueue <- streamer.VideoProcessingJob{Video: video}
 
